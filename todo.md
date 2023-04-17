@@ -12,3 +12,4 @@
 ### 8. Considerar las diferentes especialidades computación, software y computadores
 ### 9. Las asignaturas optativas no pertenecen a ninguna especialidad
 ### 10. Considerar la posibilidad de disponer de restricciones blandas y duras. Por ejemplo, los que no haya solapamiento sería una restricción dura y la preferencia de no impartir clases los viernes sería una restricción blanda.
+### 11. Las prácticas 
