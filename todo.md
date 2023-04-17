@@ -8,6 +8,7 @@
 ### 4. Presentar los horarios en html
 ### 5. Considerar que las asignaturas en inglés solo pueden solaparse con su versión en castellano
 ### 6. Considerar asignaturas troncales y optativas
-### 7. Las asignaturas optativas no se pueden solapar con las asignaturas obligatorias
+### 7. Las asignaturas optativas no se deben solapar con las asignaturas obligatorias de la especialidad
 ### 8. Considerar las diferentes especialidades computación, software y computadores
 ### 9. Las asignaturas optativas no pertenecen a ninguna especialidad
+### 10. Considerar la posibilidad de disponer de restricciones blandas y duras. Por ejemplo, los que no haya solapamiento sería una restricción dura y la preferencia de no impartir clases los viernes sería una restricción blanda.
