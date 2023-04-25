@@ -16,3 +16,6 @@ https://github.com/Web-Prolog/swi-web-prolog/tree/master/book
 
 ### Prolog Web Applications (Markus Triska)
 https://www.metalevel.at/prolog/web
+
+### Prolog HTTP server as a Unix system daemon
+https://www.swi-prolog.org/pldoc/man?section=httpunixdaemon
