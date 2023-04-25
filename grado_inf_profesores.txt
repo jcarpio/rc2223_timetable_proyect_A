@@ -1,0 +1,137 @@
+ASIGNACIÓN DOCENCIA CURSO 2022/23
+
+ÁREA DE CIENCIAS DE LA COMPUTACIÓN E INTELIGENCIA ARTIFICIAL
+
+GRADO EN INGENIERÍA INFORMÁTICA
+
+-	Fundamentos de Análisis de Algoritmos – 2º C (606010107) 214 alumnos
+Teoría
+-	T1 Teresa Santos 4,6 c.
+-	T2 Fco. J. Baquero 4,6 c.
+-	T3 Teresa Santos 4,6 c.
+-	T4 Fco. J. Baquero 4,6 c.
+Prácticas
+-	Teresa Santos 11,5 c.	Grupos 2, 3, 4,5 y 6 y 1 semana 1 a 10 (1,5c)	
+-	Antonio Palanco 1,5 c. Grupo 7 semanas 1 a 7 (1c) y grupo 1 semanas 11 a 13 (0,5c)
+-	Antonio Palanco? 2 c. Grupo 8 entero y grupo 7 semanas 8 a 14 (1 c.)
+
+-	 Metodología de la Programación – 1C (606010201) 100 alumnos
+Teoría
+-	T1 Antonio A. Márquez 4,6 c.
+-	T2 Antonio A. Márquez 4,6 c.
+Prácticas
+-	Antonio A. Márquez 4,65 c.  Grupo 1entero, grupo 3 (1,4 c.) y grupo 4 (1,25 c.)
+-	Baquero 2 c.	Grupo 2
+-	Mario Márquez 4 c. Grupo 3 (0,6 c.) y grupo 4 (0,75 c.)
+
+-	Inteligencia Artificial – 2C (606010208) 96 alumnos 
+Teoría 
+-	T1 Nacho 4,6 c.
+-	T2 Nacho 4,6 c
+Prácticas 
+-	Nacho 8 c.			
+
+
+-	Algorítmica y Modelos de Computación – 1C (606010211) 117 alumnos
+Teoría
+-	 Fco. J. Baquero 4,8 c.
+Prácticas
+-	Antonio A. Márquez 4 c. Grupos 5 y 6 enteros
+-	Francisco J. Baquero 8 c.  
+
+-	Realidad Virtual – 2C (606010233) 24 alumnos 
+Teoría
+-	Fco. Moreno 4 c.
+Prácticas
+-	Fco. Moreno 4 c.
+
+-	Sistemas Inteligentes – 2C (606010234) 31 alumnos
+Teoría
+-	Gonzalo A. Aranda 4 c.	 
+Prácticas
+-	Antonio Palanco 4 c.	 
+
+-	Procesadores de Lenguajes – 2C (606010235) 26 alumnos
+Teoría
+-	Fco. Moreno 4 c.
+Prácticas
+-	Fco. Moreno 4 c.
+
+-	Representación del Conocimiento – 2C (606010236) 15 alumnos 
+Teoría
+-	José Carpio 4 c.
+Prácticas
+-	José Carpio 4 c.
+
+-	Representación del Conocimiento – 2C (inglés) 3 erasmus
+Teoría
+-	José Carpio 4 c.
+Prácticas
+-	José Carpio 2 c.
+
+-	Modelos Avanzados de Computación – 1C (606010237) 18 alumnos
+Teoría
+-	Fco. Moreno 4 c.
+Prácticas
+-	Antonio Palanco 2 c.
+
+-	Aprendizaje Automático - 1C (606010238) 28 alumnos
+Teoría
+-	Gonzalo Aranda 2,5 c. semanas 5 a 15
+-	Miguel A. Rodríguez 1,5 c semanas 1 a 5
+Prácticas
+-	Gonzalo Aranda 3 c. Semanas 6 a 15
+-	Miguel A. Rodríguez 1 c. Semanas 3 a 5
+
+-	Aprendizaje Automático – 1C (inglés) (606010238) 4 alumno
+Teoría
+-	Gonzalo Aranda 2,5 c. semanas 6 a 15
+-	Miguel A. Rodríguez 1,5 c. Semanas 1 a 5
+Prácticas
+-	Gonzalo Aranda 1,5 c. semanas 6 a 15 Grupos 1 y 2 
+-	Miguel A. Rodríguez 0,5 c. Semanas 3 a 5 Grupos 1 y 2
+
+-	Modelos Bioinspirados y Heurísticas de Búsqueda – 2C (606010239) 22 alumnos
+Teoría
+-	Miguel A. Rodríguez 4 c. 
+Prácticas
+-	Miguel A. Rodríguez 2 c.
+
+-	Modelos Bioinspirados y Heurísticas de Búsqueda – 2C (inglés)  1 alumno
+-	Teoría
+-	Miguel A. Rodríguez 4 c. 
+Prácticas
+-	Miguel A. Rodríguez 2 c. 
+
+-	Inteligencia Artificial Aplicada a Robots – 2C (606010305) 13 alumnos 
+Teoría
+-	Javier Martín 4 c.	
+Prácticas
+-	Antonio Peregrín 1 c. Semanas 8 a 15
+-	Javier Martín 1 c. Semanas 1 a 7
+
+-	Programación de Juegos – 2C (606010306) 18 alumnos 
+Teoría
+-	Javier Martín 4 c.
+Prácticas
+-	Javier Martín 3,5 c. grupo 2 entero y grupo 2 semanas 4 a 12
+-	Antonio Márquez 0,5 c. grupo 1 semanas 1 a 3
+
+-	Minería de Datos – 1C (606010307) 15 alumnos 
+Teoría 
+-	Nacho 4 c.
+Prácticas
+-	Nacho 2 c. L2 entero 
+-	Teresa Santos 2 c.  L1 entero
+
+-	Procesamiento del habla, visión e interacción multimodal – 1C (606010308) 24 alumnos
+Teoría
+-	Francisco A. Márquez 4 c.
+Prácticas
+-	Francisco A. Márquez 4 c.
+
+-	Animación por Ordenador – 1C (606010310) 5 alumnos
+Teoría
+-	Fco. Moreno 4 c.  
+Prácticas
+-	Fco. Moreno 2 c. 
