@@ -13,3 +13,6 @@ https://www.monolune.com/articles/web-programming-in-swi-prolog/
 
 ### Web Prolog Book
 https://github.com/Web-Prolog/swi-web-prolog/tree/master/book
+
+### Prolog Web Applications (Markus Triska)
+https://www.metalevel.at/prolog/web
