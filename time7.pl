@@ -298,14 +298,6 @@ translate_row([class_subject(C,S)|Tail], [C/S|R]):-
 translate_row([free|Tail], ['&nbsp;'|R]):-   
    translate_row(Tail, R).
 
-
-align(free):- format("~t~w~t~8+", ['']).
-align(class_subject(C,S)):- format("~t~w~t~8+", [C/S]).		
-align(subject(S)):- format("~t~w~t~8+", [S]).
-align([E1,E2,E3,E4,E5]):- format("~t~w~t~8+~t~w~t~8+~t~w~t~8+~t~w~t~8+~t~w~t~8+", [E1,E2,E3,E4,E5]).
-
-with_verbatim(T, verbatim(T)).
-
 format_teachers([], _).
 format_teachers([T|Ts], Rs):-
         teacher_days(Rs, T, Days0),
