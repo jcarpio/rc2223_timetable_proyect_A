@@ -1,0 +1,12 @@
+
+Secuencia de trabajo colaborativo en Github
+
+1. git pull
+(actualiza el repositorio local con los últimos cambios, a partir de aquí puedo empezar a trabajar y modificar ficheros)
+
+2. git add .
+Esto si añadí ficheros nuevos al proyecto
+
+3. git commit -a -m "<mensaje> <fixed #<issue_number>>"
+
+4. git push
