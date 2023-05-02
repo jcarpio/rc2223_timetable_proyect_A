@@ -5,6 +5,8 @@ A lo largo de este archivo se expondrán los diferentes **ACUERDOS** a los que h
 2. Realizar una primera version de prueba donde **TODAS** las clases tengan una duración de **HORA Y MEDIA**. Así tambien se alcanza la decisión de que un **SLOT tenga el mismo valor que la duracion de la clase**. 
  
 3. Después de cada nueva funcionalidad actualizar el fichero CHANGES.txt
+4. Creado el primer Milestone para el 23 de Mayo de 2023 con el título: Producto mínimo viable.
+   En esta fase, todos los ussues de nivel 0 estarán terminados.
     
   
 --------------------------------------------------------------------------------------------------------------------------------------------------
