@@ -20,7 +20,7 @@
    Tested with Scryer Prolog.
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-:- load_files('req_inf.pl').
+:- load_files('req3.pl').
 
 :- use_module(library(clpfd)).
 :- use_module(library(persistency)).
@@ -53,7 +53,6 @@
 
 :- initialization main.
 
-
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 			 Posting constraints
    The most important data structure in this CSP are pairs of the form
@@ -74,7 +73,6 @@
    Labeling is performed on all slot variables.
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-
 :- http_handler(/, say_hi, []).
 
 say_hi(_Request) :-
@@ -90,6 +88,9 @@ main :-
 
 classes(Classes) :-
        setof(C, S^N^T^class_subject_teacher_times(C,S,T,N), Classes).
+	   
+subject_room(Subject) :-
+       setof(C-S, A^N^room_alloc(A,C,S,N), Subject).
 		
 teachers(Teachers) :-
         setof(T, C^S^N^class_subject_teacher_times(C,S,T,N), Teachers).
@@ -102,9 +103,14 @@ requirements(Rs) :-
         Goal = class_subject_teacher_times(Class,Subject,Teacher,Number),
         setof(req(Class,Subject,Teacher,Number), Goal, Rs0),
         maplist(req_with_slots, Rs0, Rs).
+		
+requirements_room(Ralloc):-
+		Goal = room_alloc(Aula , Class , Subject , Numero) , 
+		setof(rom(Aula,Class,Subject,Numero), Goal, Rs0),
+		maplist(room_with_slots, Rs0, Ralloc).
 
 req_with_slots(R, R-Slots) :- R = req(_,_,_,N), length(Slots, N).
-
+room_with_slots(R, R-Slots) :- R = rom(_,_,_,_), length(Slots, 1).
 
 pairs_slots(Ps, Vs) :-
         pairs_values(Ps, Vs0),
@@ -162,8 +168,9 @@ without_at_pos0(>, E, Ws0, Ws0) --> [E].
 %:- list_without_nths("abcd", [1,2], "ad").		
 		
 		
-requirements_variables(Rs, Vars) :-
+requirements_variables(Rs, Ralloc,Vars) :-
         requirements(Rs),
+		requirements_room(Ralloc),
         pairs_slots(Rs, Vars),
         slots_per_week(SPW),
         Max #= SPW - 1,
@@ -172,9 +179,11 @@ requirements_variables(Rs, Vars) :-
         classes(Classes),
         teachers(Teachers),
         rooms(Rooms),
+		subject_room(S),
         maplist(constrain_teacher(Rs), Teachers),
         maplist(constrain_class(Rs), Classes),
-        maplist(constrain_room(Rs), Rooms).
+        maplist(constrain_room(Rs), Rooms),
+		maplist(constrain_room_alloc(Rs,Ralloc) ,S).
 
 constrain_class(Rs, Class) :-
         tfilter(class_req(Class), Rs, Sub),
@@ -182,6 +191,23 @@ constrain_class(Rs, Class) :-
         all_different(Vs),
         findall(S, class_freeslot(Class,S), Frees),
         maplist(all_diff_from(Vs), Frees).
+		
+
+constrain_room_alloc(Rs ,Ralloc, Class-Subject):-
+		tfilter(class_req(Class), Rs, Sub),
+		tfilter(subject_req(Subject), Sub, Sub1),
+		
+		tfilter(class_room_alloc(Class), Ralloc, Sub2),
+		tfilter(subject_room_alloc(Subject), Sub2, Sub3),
+		maplist(objetive(Sub1) , Sub3).
+
+objetive([] , _ ).
+objetive([req(_,_,_,_)-[Cab1|_]|_] ,rom(_,_,_,N)-[Cab|_]):-
+		N = 0 , Cab1 #= Cab.
+objetive([req(_,_,_,_)-[_|Resto]|_],rom(_,_,_,N)-[Cab|_]):-
+		N > 0 , Cab2 is N-1,
+		objetive([req(_,_,_,_)-Resto],rom(_,_,_,Cab2)-[Cab]).
+		
 
 all_diff_from(Vs, F) :- maplist(#\=(F), Vs).
 
@@ -210,6 +236,11 @@ constrain_teacher(Rs, Teacher) :-
 
 teacher_req(T0, req(_C,_S,T1,_N)-_, T) :- =(T0,T1,T).
 class_req(C0, req(C1,_S,_T,_N)-_, T) :- =(C0, C1, T).
+subject_req(C0, req(_C,C1,_T,_N)-_, T) :- =(C0, C1, T).
+class_room(C0, req(_A,C1,_S,_N)-_, T) :- =(C0, C1, T).
+
+class_room_alloc(C0, rom(_A,C1,_S,_N)-_, T) :- =(C0, C1, T).
+subject_room_alloc(C0, rom(_A,_C,C1,_N)-_, T) :- =(C0, C1, T).
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    Relate teachers and classes to list of days.
@@ -232,15 +263,26 @@ days_variables(Days, Vs) :-
         maplist(same_length(Day), Days),
         append(Days, Vs).
 		
-class_days(Rs, Class, Days) :-
+class_days(Rs,Rm, Class, Days) :-
         days_variables(Days, Vs),
         tfilter(class_req(Class), Rs, Sub),
-        foldl(v(Sub), Vs, 0, _).
+		tfilter(class_room_alloc(Class), Rm, Sub1),
+        foldl(v(Sub,Sub1), Vs, 0, _).
+		/*room_days(Rm,Class ,Vs).*/
+		
+/* room_days(Rm , Class ,Vs):-
+        tfilter(class_room_alloc(Class), Rm, Sub),
+        foldl(v_room(Sub), Vs, 0, _).
+		
+v_room(Rm, V, N0, N) :-
+		(member(rom(Aula,_,Subject,_)-Times, Rm),member(N0, Times) -> V = subject(Aula, Subject) ; 
+		N1 =1),
+        N #= N0 + 1.*/
 
-v(Rs, V, N0, N) :-
-        (   member(req(_,Subject,_,_)-Times, Rs),
-            member(N0, Times) -> V = subject(Subject)
-        ;   V = free
+v(Rs,Rm,V, N0, N) :-
+        (   member(rom(Aula,_,Subject,_)-Times, Rm),member(N0, Times) -> V = class_subject(Aula, Subject); 
+			member(req(_,Subject,_,_)-Times, Rs),member(N0, Times) -> V = subject(Subject);
+			V = free
         ),
         N #= N0 + 1.
 
@@ -258,19 +300,19 @@ v_teacher(Rs, V, N0, N) :-
 		
 % requirements_variables(Rs, Vs), labeling([ff], Vs), class_days(Rs, '1a', Days), transpose(Days, DaysT).
 
-print_classes(Rs) :-
+print_classes(Rs,Rm) :-
         classes(Cs),
-        format_classes(Cs, Rs).
+        format_classes(Cs, Rs,Rm).
 
-format_classes([], _).
-format_classes([Class|Classes], Rs):-
-  class_days(Rs, Class, Days0),
+format_classes([], _,_).
+format_classes([Class|Classes], Rs , Rm):-
+  class_days(Rs,Rm, Class, Days0),
   transpose(Days0, Days),
   format("<h2>Class: ~w</h2>~2n", [Class]),
   weekdays_header,
   align_rows(Days),
   format('</table></div>~2n', []),
-  format_classes(Classes, Rs).
+  format_classes(Classes, Rs,Rm).
   
 % [subject(mat), free, class_subject('1a', mat), free]
 % [mat, '', '1a/mat', '']
@@ -285,10 +327,9 @@ align_row(Row):-
 		translate_row(Row, R2),
 		format("<tr><td>~w</td><td>~w</td><td>~w</td><td>~w</td><td>~w</td></tr>\n", R2).
   
-weekdays_header():- 
-        format('<div class="table-responsive">'),     		
-		format('<table class="table"><tr><th>~w</th><th>~w</th><th>~w</th><th>~w</th><th>~w</th></tr>\n', ['Mon', 'Tue','Wed','Thu','Fri']).
-        % format("~n~`=t~40|~n", []). 
+weekdays_header():-      		
+		format('<div class="table-responsive">'),     		
+		format('<table class="table"><tr><th>~w</th><th>~w</th><th>~w</th><th>~w</th><th>~w</th></tr>\n', ['Mon', 'Tue','Wed','Thu','Fri']). 
 
 translate_row([], []).
 translate_row([subject(S)|Tail], [S|R]):-   
@@ -318,8 +359,8 @@ format_teachers([T|Ts], Rs):-
 		
 print_teachers(Rs) :-
         teachers(Ts),
-        format_teachers(Ts, Rs).		
-		
+        format_teachers(Ts, Rs).
+
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 :- http_handler(root(aitt), aitt, []).		% (1)
@@ -333,18 +374,17 @@ aitt(_Request) :-					% (3)
 		format('<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">\n<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>\n<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>'),
 		format('<head></head><body>~n'),
 		format('<h1>AI Timetable</h1>~n'),
-		requirements_variables(Rs, Vs), 
+		requirements_variables(Rs,Ralloc, Vs), 
 		labeling([ff], Vs), 
-		print_classes(Rs),
+		print_classes(Rs,Ralloc),
 		print_teachers(Rs),
-		format('</body>~n').
-		
-		
+		format('</body>~n').		
 		
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    ?- server(8080).
    
-   ?- requirements_variables(Rs, Vs), labeling([ff], Vs), print_classes(Rs).
+   ?- requirements_variables(Rs,Ra, Vs),labeling([ff], Vs),print_classes(Rs).
+   ?- requirements_variables(Rs,Ralloc, Vs),labeling([ff], Vs),print_classes(Rs,Ralloc).
    %@ Class: 1a
    %@
    %@   Mon     Tue     Wed     Thu     Fri
