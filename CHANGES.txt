@@ -1,5 +1,7 @@
 # CHANGES.txt 
 
-## 20230502 fd6a02b Moidificado el fichero aitimetable.pl por Jose Manuel Camacho Mairena , tener cuidado que hay predicados con mas argumentos que en las versiones anteriores.
+## 20230502 579ac85 Modificado el fichero parser/main.py por Sergio Garcia Macias. Ahora es capaz de parsear un horaria de la pagina web de la ETSI a un fichero req.pl 
+
+## 20230502 fd6a02b Modificado el fichero aitimetable.pl por Jose Manuel Camacho Mairena , tener cuidado que hay predicados con mas argumentos que en las versiones anteriores.
 
 ## 20230502 a57315c Modificado fichero colabora.pl por Israel para problar el trabajo colaborativo
