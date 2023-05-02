@@ -23,7 +23,8 @@ A lo largo de este archivo se expondrán los diferentes **ACUERDOS** a los que h
       (Añadir los ficheros que haya creado al repositorio. Añade también ficheros creados en sub directorios.)
       
 3. git commit -a -m "mensaje fixed #<num_issue>"
-      (crea un punto de recuperación. Es posible volver a un commit previo)
+      (crea un punto de recuperación. Es posible volver a un commit previo). Si incluímos fixed #<num_issue> cerrará de forma
+      automática el issue número #<num_issue>
       
 4. git push
       (subir los cambios al repositorio remoto)
