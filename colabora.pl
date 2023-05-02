@@ -5,7 +5,10 @@ Este es un fichero para probar el trabajo colaborativo en GitHub.
 
 */
 
-%Debug 0
+
+
+#DEBUG 0
+
 
 % editado por Jesús...
 
