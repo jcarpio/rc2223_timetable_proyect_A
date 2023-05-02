@@ -25,7 +25,7 @@ Esto si añadí ficheros nuevos al proyecto
     git tag "nombretag" -m "descripcion"        -->    Permite poner un tag a cada version que vayamos subiendo. 
     git push --tags                             -->    Permite subir los tags a github.
 
-## CONECTAR REPO A GITHUB
+## Conectar repo a github
 
     git remote add origin "enlace del repo"    -->    Ambos comandos debemos ejecutarlos para crear un vínculo entre 
     git push -u origin master
