@@ -1,17 +1,12 @@
 # README.md
 
-## [Changes](CHANGES.txt)
-## [Links](LINKS.md)
-## [Git commands](GIT.md)
-
 A lo largo de este archivo se expondrán los diferentes **ACUERDOS** a los que hemos llegado para así llevar mejor el trabajo.
 1. Hemos establecido un **orden de prioridad en los issues**, donde el _0 es la tarea más relevante_ a implementar y la _3 la que menos importancia_ tiene.
 2. Realizar una primera version de prueba donde **TODAS** las clases tengan una duración de **HORA Y MEDIA**. Así tambien se alcanza la decisión de que un **SLOT tenga el mismo valor que la duracion de la clase**. 
  
 3. Después de cada nueva funcionalidad actualizar el fichero CHANGES.txt
     
-   
-    
+  
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## USO BÁSICO DE GIT:
@@ -41,5 +36,7 @@ A lo largo de este archivo se expondrán los diferentes **ACUERDOS** a los que h
             2.6 Asigna un **nombre** a este token, varía su duracion(**expiration**). dale acceso a **Repo, Project, Notifications**.
             
             
-            
+## [Changes](CHANGES.txt)
+## [Links](LINKS.md)
+## [Git commands](GIT.md)            
             
