@@ -9,6 +9,7 @@ A lo largo de este archivo se expondrán los diferentes **ACUERDOS** a los que h
 3. Después de cada nueva funcionalidad actualizar el fichero CHANGES.txt
 4. Creado el primer Milestone para el 23 de Mayo de 2023 con el título: Producto mínimo viable.
    En esta fase, todos los issues de nivel 0 estarán terminados.
+5. Antes de empezar a resolver un issue, asignarlo a tu usuario. De esta manera, si alguien quiere trabajar en ese issue, debería coordinarse con las personas que ya esten trabajando en ese issue.
     
   
 --------------------------------------------------------------------------------------------------------------------------------------------------
