@@ -22,7 +22,7 @@ A lo largo de este archivo se expondrán los diferentes **ACUERDOS** a los que h
 2. git add .
       (Añadir los ficheros que haya creado al repositorio. Añade también ficheros creados en sub directorios.)
       
-3. git commit -a -m "<mensaje> fixed #<num_issue>"
+3. git commit -a -m "mensaje fixed #<num_issue>"
       (crea un punto de recuperación. Es posible volver a un commit previo)
       
 4. git push
