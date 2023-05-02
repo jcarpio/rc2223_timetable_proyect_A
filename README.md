@@ -1,7 +1,7 @@
 # README.md
 
-[Changes](CHANGES.txt)
-[Links](LINKS.md)
+## [Changes](CHANGES.txt)
+## [Links](LINKS.md)
 
 A lo largo de este archivo se expondrán los diferentes **ACUERDOS** a los que hemos llegado para así llevar mejor el trabajo.
 1. Hemos establecido un **orden de prioridad en los issues**, donde el _0 es la tarea más relevante_ a implementar y la _3 la que menos importancia_ tiene.
