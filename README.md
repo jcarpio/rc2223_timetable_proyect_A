@@ -9,7 +9,7 @@ A lo largo de este archivo se expondrán los diferentes **ACUERDOS** a los que h
     
     USO BÁSICO DE GIT:
     
-    0. git clone 
+    0. git clone https://github.com/jcarpio/rc2223_timetable_proyect_A.git
        
     1. git pull 
       (Dentro de la carpeta del repositorio. Comprueba si hay nuevos cambios en el repositorio remoto)
