@@ -9,7 +9,7 @@ A lo largo de este archivo se expondrán los diferentes **ACUERDOS** a los que h
     
     --------------------------------------------------------------------------------------------------------------------------------------------------
     
-    USO BÁSICO DE GIT:
+    ## USO BÁSICO DE GIT:
     
     0. git clone https://github.com/jcarpio/rc2223_timetable_proyect_A.git
        
@@ -25,7 +25,7 @@ A lo largo de este archivo se expondrán los diferentes **ACUERDOS** a los que h
       (subir los cambios al repositorio remoto)
           
         
-    OBTENER TOKEN EN GIT:
+    ## OBTENER TOKEN EN GIT:
         1. Instale GIT -> https://git-scm.com/downloads
         2. Genere un Token de Acceso Personal(siga los siguientes pasos)
             2.1 Pulse sobre su imagen en la esquina superiro derecha donde le aparecerá un desplegable.
