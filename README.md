@@ -1,5 +1,7 @@
 # README.md
 
+Fecha de entrega del proyecto: 25 de junio a las 23:59
+
 A lo largo de este archivo se expondrán los diferentes **ACUERDOS** a los que hemos llegado para así llevar mejor el trabajo.
 1. Hemos establecido un **orden de prioridad en los issues**, donde el _0 es la tarea más relevante_ a implementar y la _3 la que menos importancia_ tiene.
 2. Realizar una primera version de prueba donde **TODAS** las clases tengan una duración de **HORA Y MEDIA**. Así tambien se alcanza la decisión de que un **SLOT tenga el mismo valor que la duracion de la clase**. 
