@@ -103,13 +103,21 @@ requirements(Rs) :-
         Goal = class_subject_teacher_times(Class,Subject,Teacher,Number),
         setof(req(Class,Subject,Teacher,Number), Goal, Rs0),
         maplist(req_with_slots, Rs0, Rs).
-		
+
+/*
+requirements_room(Ra) tiene el mismo funcionamiento que requirements(Rs) con la salvedad de que actua sobre las room_alloc.
+*/
+
 requirements_room(Ralloc):-
 		Goal = room_alloc(Aula , Class , Subject , Numero) , 
 		setof(rom(Aula,Class,Subject,Numero), Goal, Rs0),
 		maplist(room_with_slots, Rs0, Ralloc).
 
 req_with_slots(R, R-Slots) :- R = req(_,_,_,N), length(Slots, N).
+
+/*
+creamos una lista de un solo elemento detras de rom -> rom(Aula,Class,Subject,Lesson)-[_]
+*/
 room_with_slots(R, R-Slots) :- R = rom(_,_,_,_), length(Slots, 1).
 
 pairs_slots(Ps, Vs) :-
@@ -192,7 +200,9 @@ constrain_class(Rs, Class) :-
         findall(S, class_freeslot(Class,S), Frees),
         maplist(all_diff_from(Vs), Frees).
 		
-
+/*
+Restricciones para que el valor dentro la lista rom y req en el Lesson especifico de room_alloc. req(_,_,_,_)-[_A] , rom(_,_,_,_)-[_B] _A #=_B
+*/
 constrain_room_alloc(Rs ,Ralloc, Class-Subject):-
 		tfilter(class_req(Class), Rs, Sub),
 		tfilter(subject_req(Subject), Sub, Sub1),
@@ -201,6 +211,11 @@ constrain_room_alloc(Rs ,Ralloc, Class-Subject):-
 		tfilter(subject_room_alloc(Subject), Sub2, Sub3),
 		maplist(objetive(Sub1) , Sub3).
 
+/*
+req(_,_,_,_)-[_A] , rom(_,_,_,_)-[_B] _A #=_B
+
+en el caso de que Lesson vale 0, hacemos la restriccion y cuando es >0 seguimos buscando.
+*/
 objetive([] , _ ).
 objetive([req(_,_,_,_)-[Cab1|_]|_] ,rom(_,_,_,N)-[Cab|_]):-
 		N = 0 , Cab1 #= Cab.
@@ -268,7 +283,6 @@ class_days(Rs,Rm, Class, Days) :-
         tfilter(class_req(Class), Rs, Sub),
 		tfilter(class_room_alloc(Class), Rm, Sub1),
         foldl(v(Sub,Sub1), Vs, 0, _).
-		/*room_days(Rm,Class ,Vs).*/
 		
 /* room_days(Rm , Class ,Vs):-
         tfilter(class_room_alloc(Class), Rm, Sub),
