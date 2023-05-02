@@ -1,4 +1,3 @@
-# CHANGES.txt
-
+# CHANGES.txt 
 
 ## 20230502 a57315c Modificado fichero colabora.pl por Israel para problar el trabajo colaborativo
