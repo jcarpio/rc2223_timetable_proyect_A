@@ -13,7 +13,7 @@ A lo largo de este archivo se expondrán los diferentes **ACUERDOS** a los que h
     
   
   ## URL DE GRUPOS REDUCIDOS:
-        [- 1 Cuatrimestre: ](https://apppruebaetsi.uhu.es/simplesaml/app_gestion_cursos/Grupos_reducidos/HorarioGR_coordinadores_sub/xml/plantilla_xml.php?tit=G26&year=2022&cuatr=1#1-2)
+        https://apppruebaetsi.uhu.es/simplesaml/app_gestion_cursos/Grupos_reducidos/HorarioGR_coordinadores_sub/xml/plantilla_xml.php?tit=G26&year=2022&cuatr=1#1-2
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## USO BÁSICO DE GIT:
