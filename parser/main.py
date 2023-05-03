@@ -11,13 +11,29 @@ finally:
 import html
 from enum import Enum
 
-URL = "http://apppruebaetsi.uhu.es/simplesaml/app_gestion_cursos/Teoria/xml/plantilla_xml_horarios_2.php?tit=G26&year=2021&cuatr=1"
+URL = "http://apppruebaetsi.uhu.es/simplesaml/app_gestion_cursos/Teoria/xml/plantilla_xml_horarios_2.php?tit=G26&year=2022&cuatr=1"
 FICHERO = "Datos.txt"
 FICHERO_REQUISITOS = "req_pro.pl"
 ASIGNATURA_TAG = "<Asignatura "
 ASIGNATURA_TAG_CLOSE = "</Asignatura>"
 AULA_TAG = "<Aulas_gr "
 HORARIO_TAG = "<Horario_t "
+
+ASIGNATURA_PROFESORES: dict[str, list[str]] = {
+    "Fundamentos de Análisis de Algoritmos": ["Teresa Santos", "Fco. J. Baquero"],
+    "Metodología de la Programación": ["Antonio A. Márquez", "Fco. J. Baquero", "Mario Márquez"],
+    "Inteligencia Artificial": ["Nacho"],
+    "Algorítmica y Modelos de Computación": ["Antonio A. Márquez", "Francisco J. Baquero"],
+    "Realidad Virtual": ["Fco. Moreno"],
+    "Sistemas Inteligentes": ["Gonzalo A. Aranda", "Antonio Palanco"],
+    "Procesadores de Lenguajes": ["Fco. Moreno"],
+    "Representación del Conocimiento": ["José Carpio"],
+    "Representación del Conocimiento (inglés)": ["José Carpio"],
+    "Modelos Avanzados de Computación": ["Fco. Moreno", "Antonio Palanco"],
+    "Aprendizaje Automático": ["Gonzalo Aranda", "Miguel A. Rodríguez"],
+    "Aprendizaje Automático (inglés)": ["Gonzalo Aranda", "Miguel A. Rodríguez"]
+}
+
 
 class PrologSubjectData:
     # class_subject_teacher_times('1a', ph, fiz1, 2).
@@ -128,7 +144,6 @@ def main():
         f.close()
 
     times_asignatura: bool = False
-    contador: int = 0
     for line in data.split("\n"):
         if AULA_TAG in line:
             aulas.append(Aula(line))
@@ -163,16 +178,32 @@ def main():
         """
         aulas_times: dict[str, int] = {hora.get(HoraAtributes.AULA): sum(1 for h in asignatura.horas if h.get(HoraAtributes.AULA) == hora.get(HoraAtributes.AULA)) for hora in asignatura.horas}
 
-        for aula, hora in aulas_times.items():
+        for aula, veces in aulas_times.items():
             aula = aula if aula != "" else "Aula_Generica"
             profesor = "Profesor_Generico"
+
+            ingles: bool = False
+
+            for hora in asignatura.horas:
+                if hora.get(HoraAtributes.AULA) == aula:
+                    ingles = hora.get(HoraAtributes.TURNO) == "Ingles"
+                    break
+
             nombre = asignatura.get(AsigAtributes.NOMBRE).replace(" ", "_")
-            times = hora
+            if ingles:
+                nombre += "_Ingles"
+            times = veces
             prolog_data.append(PrologSubjectData(aula, nombre, profesor, times))
 
 
     with open(FICHERO_REQUISITOS, "w", encoding="utf8") as file:
+        curso = None
         for pd in prolog_data:
+            curso_act: str = [x.get(AsigAtributes.CURSO) for x in asignaturas if x.get(AsigAtributes.NOMBRE).replace(" ", "_") == pd.asignatura.removesuffix("_Ingles")]
+            if curso != curso_act:
+                file.write(f"\n\n%########## CURSO {curso_act} ################%\n\n")
+                curso = curso_act
+
             file.write((str(pd)+"\n"))
 
     for data in prolog_data:
