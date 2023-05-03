@@ -1,5 +1,7 @@
 # CHANGES.txt 
 
+## 20230503 98bb593 Modificado el fichero parser/main.py por Sergio Garcia Macias. Ahora clasifica por turnos en vez de por aulas.
+
 ## 20230503 b88a876 Modificado el fichero parser/main.py por Sergio Garcia Macias. Ahora se diferencia entre grupos de Inlges y Español.
 
 ## 20230502 579ac85 Modificado el fichero parser/main.py por Sergio Garcia Macias. Ahora es capaz de parsear un horario de la pagina web de la ETSI a un fichero req.pl 
