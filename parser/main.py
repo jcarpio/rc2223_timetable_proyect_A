@@ -176,10 +176,10 @@ def main():
                         aulas[aula] = 1
 
         """
-        aulas_times: dict[str, int] = {hora.get(HoraAtributes.AULA): sum(1 for h in asignatura.horas if h.get(HoraAtributes.AULA) == hora.get(HoraAtributes.AULA)) for hora in asignatura.horas}
+        turno_times: dict[str, int] = {hora.get(HoraAtributes.TURNO): sum(1 for h in asignatura.horas if h.get(HoraAtributes.TURNO) == hora.get(HoraAtributes.TURNO)) for hora in asignatura.horas}
 
-        for aula, veces in aulas_times.items():
-            aula = aula if aula != "" else "Aula_Generica"
+        for aula, veces in turno_times.items():
+            aula = ("Inf"+asignatura.get(AsigAtributes.CURSO)+aula).replace(" ", "") if aula != "" else "TurnoGenerico"
             profesor = "Profesor_Generico"
 
             ingles: bool = False
@@ -199,7 +199,7 @@ def main():
     with open(FICHERO_REQUISITOS, "w", encoding="utf8") as file:
         curso = None
         for pd in prolog_data:
-            curso_act: str = [x.get(AsigAtributes.CURSO) for x in asignaturas if x.get(AsigAtributes.NOMBRE).replace(" ", "_") == pd.asignatura.removesuffix("_Ingles")]
+            curso_act: str = [x.get(AsigAtributes.CURSO) for x in asignaturas if x.get(AsigAtributes.NOMBRE).replace(" ", "_") == pd.asignatura.removesuffix("_Ingles")][0]
             if curso != curso_act:
                 file.write(f"\n\n%########## CURSO {curso_act} ################%\n\n")
                 curso = curso_act
