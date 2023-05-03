@@ -24,3 +24,6 @@ https://www.metalevel.at/prolog/web
 
 ### Prolog HTTP server as a Unix system daemon
 https://www.swi-prolog.org/pldoc/man?section=httpunixdaemon
+
+### Git Pull Branch from GitHub
+https://www.w3schools.com/git/git_branch_pull_from_remote.asp?remote=github
