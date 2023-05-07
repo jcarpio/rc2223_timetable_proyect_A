@@ -73,6 +73,58 @@ class_subject_teacher_times('Inf3T1', 'Programación Concurrente y Distribuida',
 class_subject_teacher_times('Inf3T1', 'Interconexión de Redes de Computadores', intredcmpInf3T1, 2).
 
 
+class_subject_teacher_times('Inf3T1', 'Arquitectura del Software Dirigida por Modelos', arqsoftfInf3T1, 2).
+class_subject_teacher_times('Inf3T1', 'Ingeniería de Requisitos', ingreqinfInf3T1, 2).
+class_subject_teacher_times('Inf3T1', 'Diseño de Interfaces de Usuario',disintusInf3T1, 2).
+class_subject_teacher_times('Inf3T1', 'Sistemas Distribuidos', sisdisInf3T1, 2).
+class_subject_teacher_times('Inf3T1', 'Modelos Formales en Ingeniería de Software',modldorminsofInf3T1, 2).
+
+
+class_subject_teacher_times('Inf3T1', 'Administración Y Gestión de Redes de Computadores', admgesredcomInf3T1, 2).
+class_subject_teacher_times('Inf3T1', 'Computadores Comerciales',compcominfInf3T1, 2).
+class_subject_teacher_times('Inf3T1', 'Sistemas Computadores de Altas Prestaciones',siscompaltpresInf3T1, 2).
+class_subject_teacher_times('Inf3T1', 'Sistemas Programables', sisproInf3T1, 2).
+class_subject_teacher_times('Inf3T1', 'Diseño de Sistemas Hardware-Software',disishsInf3T1, 2).
+
+
+class_subject_teacher_times('Inf3T1', 'Representación del Conocimiento', repconInf3T1, 2).
+class_subject_teacher_times('Inf3T1', 'Sistemas Inteligentes',sisintInf3T1, 2).
+class_subject_teacher_times('Inf3T1', 'Procesadores de Lenguajes',prolenInf3T1, 2).
+class_subject_teacher_times('Inf3T1', 'Sistemas de Percepción', sisperInf3T1, 2).
+class_subject_teacher_times('Inf3T1', 'Realidad Virtual',reavirtInf3T1, 2).
+
+
+class_subject_teacher_times('Inf4T1', 'Integración de la Información Y Aplicaciones', intinfapInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Calidad, Medición Y Estimación de Productos Y Procesos Software',cmepprosofInf4T1, 2).
+
+class_subject_teacher_times('Inf4T1', 'Sistemas de Tiempo Real', sistmreInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Administración de Servidores',admserInf4T1, 2).
+
+class_subject_teacher_times('Inf4T1', 'Aprendizaje Automático', aprautInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Modelos Avanzados de Computación',modavancompInf4T1, 2).
+
+class_subject_teacher_times('Inf4T1', 'Mantenimiento Y Gestión del Cambio en Sistemas Software',mangestcamsoInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Seguridad de Sistemas Informáticos', segsisinfInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Modelos Bioinspirados Y Heurísticas de Búsquedas',modbioheubusInf4T1, 2).
+
+
+class_subject_teacher_times('Inf4T1', 'desarrollo de Aplicaciones Web',deappwebInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Minería de Datos', mindatosfInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Procesamiento del Habla, Visión E Interacción Multimodal',prohabvisinmuInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Robótica',roboInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Redes Avanzadas', redavanInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Motores de Búsqueda',motbusqInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Visión Por Computador',visordInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Animación Por Ordenador', animordInf4T1, 2).
+
+
+class_subject_teacher_times('Inf4T1', 'Domótica',domoInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Inteligencia Artificial Aplicada A Robots', intartaplrobInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Administración de Bases de Datos',admibasdatosInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Modelado de Negocio',modlnegInf4T1, 2).
+class_subject_teacher_times('Inf4T1', 'Programación de Juegos', projuegInf4T1, 2).
+
+
 % subject_coupling('Inf1t1', 'Matematicas I', 'Matematics 1').
 
 % morning_turn('Inf1T1').
