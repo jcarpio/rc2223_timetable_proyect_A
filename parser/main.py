@@ -197,6 +197,9 @@ def main():
 
 
     with open(FICHERO_REQUISITOS, "w", encoding="utf8") as file:
+
+        slots = "slots_per_week(40).\nslots_per_day(8).\n\n"
+        file.write(slots)
         curso = None
         for pd in prolog_data:
             curso_act: str = [x.get(AsigAtributes.CURSO) for x in asignaturas if x.get(AsigAtributes.NOMBRE).replace(" ", "_") == pd.asignatura.removesuffix("_Ingles")][0]
