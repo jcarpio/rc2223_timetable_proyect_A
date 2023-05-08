@@ -3,10 +3,13 @@
 import os
 try:
     import requests
+    from unidecode import unidecode
 except:
     os.system("py -m pip install requests")
+    os.system("py -m pip install Unidecode")
 finally:
     import requests
+    from unidecode import unidecode
 
 import html
 from enum import Enum
@@ -34,6 +37,8 @@ ASIGNATURA_PROFESORES: dict[str, list[str]] = {
     "Aprendizaje Automático (inglés)": ["Gonzalo Aranda", "Miguel A. Rodríguez"]
 }
 
+def fix_string(text: str) -> str:
+    return unidecode(html.unescape(text))
 
 class PrologSubjectData:
     # class_subject_teacher_times('1a', ph, fiz1, 2).
@@ -91,7 +96,7 @@ class Aula:
         self.atributos = {}
         line = line[1:len(line)-2]
         atributes: list[str] = line.strip(AULA_TAG).split("\" ")
-        self.atributos = {data.strip().split("=\"")[0]: html.unescape(data.strip().split("=\"")[1]) for data in atributes}
+        self.atributos = {data.strip().split("=\"")[0]:  fix_string(data.strip().split("=\"")[1]) for data in atributes}
 
 
 class Hora:
@@ -101,7 +106,7 @@ class Hora:
         self.atributos = {}
         line = line[1:len(line)-2]
         atributes: list[str] = line.strip(HORARIO_TAG).split("\" ")
-        self.atributos = {data.strip().split("=\"")[0]: html.unescape(data.strip().split("=\"")[1]) for data in atributes}
+        self.atributos = {data.strip().split("=\"")[0]: fix_string(data.strip().split("=\"")[1]) for data in atributes}
 
     def get(self, atributo: HoraAtributes) -> str:
         attr: (str | None) = self.atributos.get(atributo)
@@ -120,7 +125,7 @@ class Asignatura:
 
         line = line[1:len(line)-2]
         atributes: list[str] = line.strip(ASIGNATURA_TAG).split("\" ")
-        self.atributos = {data.strip().split("=\"")[0]: html.unescape(data.strip().split("=\"")[1]) for data in atributes}
+        self.atributos = {data.strip().split("=\"")[0]: fix_string(data.strip().split("=\"")[1]) for data in atributes}
 
     def set(self, atributo: str, value):
         self.atributos[atributo] = value
