@@ -1,5 +1,10 @@
 
 
+slots_per_week(40).
+
+slots_per_day(8).
+
+
 %########## CURSO 1 ################%
 
 class_subject_teacher_times('Inf1Turno3', Matemáticas_I, Profesor_Generico, 2)
