@@ -207,7 +207,7 @@ def main():
                 file.write(f"\n\n%########## CURSO {curso_act} ################%\n\n")
                 curso = curso_act
 
-            file.write((str(pd)+"\n"))
+            file.write((str(pd)+".\n"))
 
     for data in prolog_data:
         print(f"{data}")
