@@ -184,21 +184,25 @@ def main():
         turno_times: dict[str, int] = {hora.get(HoraAtributes.TURNO): sum(1 for h in asignatura.horas if h.get(HoraAtributes.TURNO) == hora.get(HoraAtributes.TURNO)) for hora in asignatura.horas}
 
         for aula, veces in turno_times.items():
-            aula = ("Inf"+asignatura.get(AsigAtributes.CURSO)+aula).replace(" ", "") if aula != "" else "TurnoGenerico"
-            profesor = "Profesor_Generico"
-
-            ingles: bool = False
-
-            for hora in asignatura.horas:
-                if hora.get(HoraAtributes.AULA) == aula:
-                    ingles = hora.get(HoraAtributes.TURNO) == "Ingles"
-                    break
+            turno = ("Inf"+asignatura.get(AsigAtributes.CURSO)+aula).replace(" ", "") if aula != "" else "TurnoGenerico"
 
             nombre = asignatura.get(AsigAtributes.NOMBRE).replace(" ", "_")
+            ingles: bool = False
+            profesor = "Profesor_"+nombre
+            if aula == "Turno 2" or aula == "Turno 4":
+                profesor += "_tarde"
+                
+            if aula == "Ingles":
+                ingles = True
+                profesor += "_ingles"
+            # for hora in asignatura.horas:
+            #     if hora.get(HoraAtributes.TURNO) == "Ingles":
+            #         break
+
             if ingles:
                 nombre += "_Ingles"
             times = veces
-            prolog_data.append(PrologSubjectData(aula, nombre, profesor, times))
+            prolog_data.append(PrologSubjectData(turno, nombre, profesor, times))
 
 
     with open(FICHERO_REQUISITOS, "w", encoding="utf8") as file:
