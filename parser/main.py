@@ -63,7 +63,7 @@ class PrologSubjectData:
 class AulasAtributes(str, Enum):
     TITULACION = "Titulacion"
     CURSO = "Curso"
-    CUATRIMESTRE = "Cuatrimestre"
+    CUATRIMESTRE = "cuatrimestre"
     TURNO = "Turno"
     AULA = "Aula"
 
@@ -86,7 +86,7 @@ class HoraAtributes(str, Enum):
     HORA_I = "Hora_i"
     HORA_F = "Hora_f"
     TURNO = "Turno"
-    CUATRIMESTRE = "Cuatrimestre"
+    CUATRIMESTRE = "cuatrimestre"
 
 
 class Aula:
@@ -137,6 +137,11 @@ class Asignatura:
             return attr
         return  ""
 
+    def get_cuatri(self) -> str:
+        try:
+            return self.horas[0].get(HoraAtributes.CUATRIMESTRE)
+        except IndexError:
+            return " "
 
 def main():
     response = requests.get(URL)
@@ -183,6 +188,9 @@ def main():
         """
         turno_times: dict[str, int] = {hora.get(HoraAtributes.TURNO): sum(1 for h in asignatura.horas if h.get(HoraAtributes.TURNO) == hora.get(HoraAtributes.TURNO)) for hora in asignatura.horas}
 
+        # FIXME!
+        cuatri = asignatura.get_cuatri()[0]
+
         for aula, veces in turno_times.items():
             turno = ("Inf"+asignatura.get(AsigAtributes.CURSO)+aula).replace(" ", "") if aula != "" else "TurnoGenerico"
 
@@ -199,8 +207,10 @@ def main():
             #     if hora.get(HoraAtributes.TURNO) == "Ingles":
             #         break
 
+            turno += "Cua"+cuatri
             if ingles:
                 nombre += "_Ingles"
+
             times = veces
             prolog_data.append(PrologSubjectData(turno, nombre, profesor, times))
 
