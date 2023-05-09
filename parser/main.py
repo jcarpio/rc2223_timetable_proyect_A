@@ -63,7 +63,7 @@ class PrologSubjectData:
 class AulasAtributes(str, Enum):
     TITULACION = "Titulacion"
     CURSO = "Curso"
-    CUATRIMESTRE = "Cuatrimestre"
+    CUATRIMESTRE = "cuatrimestre"
     TURNO = "Turno"
     AULA = "Aula"
 
@@ -86,7 +86,7 @@ class HoraAtributes(str, Enum):
     HORA_I = "Hora_i"
     HORA_F = "Hora_f"
     TURNO = "Turno"
-    CUATRIMESTRE = "Cuatrimestre"
+    CUATRIMESTRE = "cuatrimestre"
 
 
 class Aula:
@@ -96,7 +96,7 @@ class Aula:
         self.atributos = {}
         line = line[1:len(line)-2]
         atributes: list[str] = line.strip(AULA_TAG).split("\" ")
-        self.atributos = {data.strip().split("=\"")[0]: html.unescape(data.strip().split("=\"")[1]) for data in atributes}
+        self.atributos = {data.strip().split("=\"")[0]:  fix_string(data.strip().split("=\"")[1]) for data in atributes}
 
 
 class Hora:
@@ -106,7 +106,7 @@ class Hora:
         self.atributos = {}
         line = line[1:len(line)-2]
         atributes: list[str] = line.strip(HORARIO_TAG).split("\" ")
-        self.atributos = {data.strip().split("=\"")[0]: html.unescape(data.strip().split("=\"")[1]) for data in atributes}
+        self.atributos = {data.strip().split("=\"")[0]: fix_string(data.strip().split("=\"")[1]) for data in atributes}
 
     def get(self, atributo: HoraAtributes) -> str:
         attr: (str | None) = self.atributos.get(atributo)
@@ -125,7 +125,7 @@ class Asignatura:
 
         line = line[1:len(line)-2]
         atributes: list[str] = line.strip(ASIGNATURA_TAG).split("\" ")
-        self.atributos = {data.strip().split("=\"")[0]: html.unescape(data.strip().split("=\"")[1]) for data in atributes}
+        self.atributos = {data.strip().split("=\"")[0]: fix_string(data.strip().split("=\"")[1]) for data in atributes}
 
     def set(self, atributo: str, value: str) -> "Asignatura":
         self.atributos[atributo] = value
@@ -137,6 +137,11 @@ class Asignatura:
             return attr
         return  ""
 
+    def get_cuatri(self) -> str:
+        try:
+            return self.horas[0].get(HoraAtributes.CUATRIMESTRE)
+        except IndexError:
+            return " "
 
 def main():
     response = requests.get(URL)
@@ -183,25 +188,37 @@ def main():
         """
         turno_times: dict[str, int] = {hora.get(HoraAtributes.TURNO): sum(1 for h in asignatura.horas if h.get(HoraAtributes.TURNO) == hora.get(HoraAtributes.TURNO)) for hora in asignatura.horas}
 
+        # FIXME!
+        cuatri = asignatura.get_cuatri()[0]
+
         for aula, veces in turno_times.items():
-            aula = ("Inf"+asignatura.get(AsigAtributes.CURSO)+aula).replace(" ", "") if aula != "" else "TurnoGenerico"
-            profesor = "Profesor_Generico"
-
-            ingles: bool = False
-
-            for hora in asignatura.horas:
-                if hora.get(HoraAtributes.AULA) == aula:
-                    ingles = hora.get(HoraAtributes.TURNO) == "Ingles"
-                    break
+            turno = ("Inf"+asignatura.get(AsigAtributes.CURSO)+aula).replace(" ", "") if aula != "" else "TurnoGenerico"
 
             nombre = asignatura.get(AsigAtributes.NOMBRE).replace(" ", "_")
+            ingles: bool = False
+            profesor = "Profesor_"+nombre
+            if aula == "Turno 2" or aula == "Turno 4":
+                profesor += "_tarde"
+                
+            if aula == "Ingles":
+                ingles = True
+                profesor += "_ingles"
+            # for hora in asignatura.horas:
+            #     if hora.get(HoraAtributes.TURNO) == "Ingles":
+            #         break
+
+            turno += "Cua"+cuatri
             if ingles:
                 nombre += "_Ingles"
+
             times = veces
-            prolog_data.append(PrologSubjectData(aula, nombre, profesor, times))
+            prolog_data.append(PrologSubjectData(turno, nombre, profesor, times))
 
 
     with open(FICHERO_REQUISITOS, "w", encoding="utf8") as file:
+
+        slots = "slots_per_week(40).\nslots_per_day(8).\n\n"
+        file.write(slots)
         curso = None
         for pd in prolog_data:
             curso_act: str = [x.get(AsigAtributes.CURSO) for x in asignaturas if x.get(AsigAtributes.NOMBRE).replace(" ", "_") == pd.asignatura.removesuffix("_Ingles")][0]
@@ -209,7 +226,7 @@ def main():
                 file.write(f"\n\n%########## CURSO {curso_act} ################%\n\n")
                 curso = curso_act
 
-            file.write((str(pd)+"\n"))
+            file.write((str(pd)+".\n"))
 
     for data in prolog_data:
         print(f"{data}")

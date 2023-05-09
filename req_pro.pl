@@ -1,3 +1,5 @@
+slots_per_week(40).
+slots_per_day(8).
 
 
 %########## CURSO 1 ################%
