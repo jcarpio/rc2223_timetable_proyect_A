@@ -38,7 +38,7 @@ ASIGNATURA_PROFESORES: dict[str, list[str]] = {
 }
 
 def fix_string(text: str) -> str:
-    return unidecode(html.unescape(text))
+    return unidecode(html.unescape(text)).replace(" ", "_").replace(",", "")
 
 class PrologSubjectData:
     # class_subject_teacher_times('1a', ph, fiz1, 2).
@@ -192,9 +192,9 @@ def main():
         cuatri = asignatura.get_cuatri()[0]
 
         for aula, veces in turno_times.items():
-            turno = ("Inf"+asignatura.get(AsigAtributes.CURSO)+aula).replace(" ", "") if aula != "" else "TurnoGenerico"
+            turno = ("Inf"+asignatura.get(AsigAtributes.CURSO)+aula) if aula != "" else "TurnoGenerico"
 
-            nombre = asignatura.get(AsigAtributes.NOMBRE).replace(" ", "_")
+            nombre = asignatura.get(AsigAtributes.NOMBRE)
             ingles: bool = False
             profesor = "Profesor_"+nombre
             if aula == "Turno 2" or aula == "Turno 4":
@@ -221,7 +221,7 @@ def main():
         file.write(slots)
         curso = None
         for pd in prolog_data:
-            curso_act: str = [x.get(AsigAtributes.CURSO) for x in asignaturas if x.get(AsigAtributes.NOMBRE).replace(" ", "_") == pd.asignatura.removesuffix("_Ingles")][0]
+            curso_act: str = [x.get(AsigAtributes.CURSO) for x in asignaturas if x.get(AsigAtributes.NOMBRE) == pd.asignatura.removesuffix("_Ingles")][0]
             if curso != curso_act:
                 file.write(f"\n\n%########## CURSO {curso_act} ################%\n\n")
                 curso = curso_act
