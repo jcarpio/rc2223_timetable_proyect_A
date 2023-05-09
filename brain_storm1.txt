@@ -1,0 +1,26 @@
+1. Hablarle al sistema
+2. Poder personalizar el diseño de los horarios 
+3. Hacer una juego que cree el horario
+4. Leer un horario
+5. iCal (Apple) intercambio de horarios
+6. Hacer el horario de forma colaborativa
+7. Ayuda personalizada para la elaboración del horario
+8. Horario adaptable a cambios en aulas/disponibilidad de profesores
+9. Tener una archivo histórico de horarios
+10. Avisos a los usuarios, recordatorios, cambios en el horario
+11. Encuestas, preguntas a los usuarios
+12. Estadísticas de uso/tiempos de desplazamiento
+13. Base de datos de recursos/software/equipamiento/puestos de las aulas
+14. Base de datos de los recursos de las asignaturas
+15. Horas de descanso
+16. Añadir el horario de tutorías para hacerlas compatibles con las clases
+17. Entregas de trabajos para evitar saturación de trabajo
+18. Recursos disponibles en horario y ubicación (salas de estudio, cafeterías)
+19. Posibilidad de incluir el horario de eventos interesantes y reorganizar horarios
+20. Incluir horario personal que se integre con el horario de la escuela/universidad
+21. Una API para uso de otras aplicaciones, por ejemplo poder hacer consultas
+    sobre el horario más adecuado para una charla/conferencia
+22. Añadir calendarios de exámenes
+23. Que las restricciones se aplique en el orden que marque una normativa escrita
+    en la blockchain
+24. Que se puedan votar normas a través de la blockchain
