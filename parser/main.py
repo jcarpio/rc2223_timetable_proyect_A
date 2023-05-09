@@ -3,10 +3,13 @@
 import os
 try:
     import requests
+    from unidecode import unidecode
 except:
     os.system("py -m pip install requests")
+    os.system("py -m pip install Unidecode")
 finally:
     import requests
+    from unidecode import unidecode
 
 import html
 from enum import Enum
@@ -34,6 +37,8 @@ ASIGNATURA_PROFESORES: dict[str, list[str]] = {
     "Aprendizaje Automático (inglés)": ["Gonzalo Aranda", "Miguel A. Rodríguez"]
 }
 
+def fix_string(text: str) -> str:
+    return unidecode(html.unescape(text))
 
 class PrologSubjectData:
     # class_subject_teacher_times('1a', ph, fiz1, 2).
@@ -52,7 +57,7 @@ class PrologSubjectData:
         self.times = times
 
     def __str__(self) -> str:
-        return f"class_subject_teacher_times('{self.aula}', {self.asignatura}, {self.profesor}, {self.times})"
+        return f"class_subject_teacher_times('{self.aula}', {fix_string(self.asignatura.lower())}, {fix_string(self.profesor.lower())}, {self.times})"
 
 
 class AulasAtributes(str, Enum):
@@ -122,7 +127,7 @@ class Asignatura:
         atributes: list[str] = line.strip(ASIGNATURA_TAG).split("\" ")
         self.atributos = {data.strip().split("=\"")[0]: html.unescape(data.strip().split("=\"")[1]) for data in atributes}
 
-    def set(self, atributo: str, value):
+    def set(self, atributo: str, value: str) -> "Asignatura":
         self.atributos[atributo] = value
         return self
     
@@ -154,7 +159,7 @@ def main():
             asignaturas.append(Asignatura(line))
             times_asignatura = True
         elif times_asignatura:
-            asignaturas[(len(asignaturas)-1)].horas.append(Hora(line))
+            asignaturas[-1].horas.append(Hora(line))
 
     prolog_data: list[PrologSubjectData] = []
 
