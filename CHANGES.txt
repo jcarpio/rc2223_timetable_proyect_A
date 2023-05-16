@@ -1,5 +1,7 @@
 # CHANGES.txt 
 
+## 20230516 fdf2f65 Modificado el fichero aitimetable.pl por Jose Manuel Camacho Mairena. Creado el horario para las clases especiales.
+
 ## 20230503 98bb593 Modificado el fichero parser/main.py por Sergio Garcia Macias. Ahora clasifica por turnos en vez de por aulas.
 
 ## 20230503 b88a876 Modificado el fichero parser/main.py por Sergio Garcia Macias. Ahora se diferencia entre grupos de Inlges y Español.
