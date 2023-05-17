@@ -2,7 +2,7 @@
 
 Fecha de entrega del proyecto: 25 de junio a las 23:59
 
-# Objetivo: Crear un prototipo que poder mostrar a posibles inversores demostrando las posibilidades de la Prolog y la CLP para la elaboración de horarios.
+# Objetivo: Crear un prototipo que poder mostrar a posibles inversores demostrando las posibilidades de Prolog y la CLP para la elaboración de horarios.
 
 A lo largo de este archivo se expondrán los diferentes **ACUERDOS** a los que hemos llegado para así llevar mejor el trabajo.
 1. Hemos establecido un **orden de prioridad en los issues**, donde el _0 es la tarea más relevante_ a implementar y la _3 la que menos importancia_ tiene.
