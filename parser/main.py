@@ -37,18 +37,36 @@ ASIGNATURA_PROFESORES: dict[str, list[str]] = {
     "Aprendizaje Automático (inglés)": ["Gonzalo Aranda", "Miguel A. Rodríguez"]
 }
 
+"""
+                   Inf1Turno_1Cua1
+room_ingles(aula, "               ", matematicas_i, 2)
+
+
+"""
+
 def fix_string(text: str) -> str:
-    return unidecode(html.unescape(text)).replace(" ", "_").replace(",", "")
+    return unidecode(html.unescape(text))   \
+    .replace(" ", "_")  \
+    .replace(",", "")   \
+    .replace(".", "_")
+
+class PrologInglesSubject:
+
+    def __init__(self, aula, turno, asig_esp, times):
+        self.aula: str = aula
+        self.turno: str = turno
+        self.asig_esp: str = asig_esp
+        self.times: str = times
+
+    def __str__(self) -> str:
+        return f"room_ingles({self.aula},'{self.turno}',{self.asig_esp.lower()},{self.times})"
 
 class PrologSubjectData:
     # class_subject_teacher_times('1a', ph, fiz1, 2).
     #                              ^     ^    ^   ^
     #                            Aula  Asig  Prof Veces/semana
 
-    aula: str
-    asignatura: str
-    profesor: str
-    times: str
+
 
     def __init__(self, aula, asignatura, profesor, times):
         self.aula = aula
@@ -137,6 +155,12 @@ class Asignatura:
             return attr
         return  ""
 
+    def get_aula_ingles(self) -> str:
+        for hora in self.horas:
+            if hora.get(HoraAtributes.TURNO) == "Ingles":
+                return hora.get(HoraAtributes.AULA)
+        return ""
+
     def get_cuatri(self) -> str:
         try:
             return self.horas[0].get(HoraAtributes.CUATRIMESTRE)
@@ -167,52 +191,44 @@ def main():
             asignaturas[-1].horas.append(Hora(line))
 
     prolog_data: list[PrologSubjectData] = []
+    prolog_data_asig_ingles: list[PrologInglesSubject] = []
 
     for asignatura in asignaturas:
-        """ 
-            Cortesia de chatGPT
-
-            Esto crea un diccionario que contiene como clave las aulas en el que
-            se imparte la asignatura y como valor las veces que se imparte en ese
-            aula.
-
-            Este codigo es equivalente:
-
-                for hora in horas_clase:
-                    aula = hora.get(HoraAtributes.AULA)
-                    if aula in aulas:
-                        aulas[aula] += 1
-                    else:
-                        aulas[aula] = 1
-
-        """
-        turno_times: dict[str, int] = {hora.get(HoraAtributes.TURNO): sum(1 for h in asignatura.horas if h.get(HoraAtributes.TURNO) == hora.get(HoraAtributes.TURNO)) for hora in asignatura.horas}
+       
+        turno_times: dict[str, int] = {}
+        for hora in asignatura.horas:
+            turno = hora.get(HoraAtributes.TURNO)
+            if turno in turno_times:
+                turno_times[turno] += 1
+            else:
+                turno_times[turno] = 1
 
         # FIXME!
+        # Si la asignatura no 
         cuatri = asignatura.get_cuatri()[0]
 
-        for aula, veces in turno_times.items():
-            turno = ("Inf"+asignatura.get(AsigAtributes.CURSO)+aula) if aula != "" else "TurnoGenerico"
 
-            nombre = asignatura.get(AsigAtributes.NOMBRE)
-            ingles: bool = False
-            profesor = "Profesor_"+nombre
-            if aula == "Turno 2" or aula == "Turno 4":
-                profesor += "_tarde"
-                
-            if aula == "Ingles":
-                ingles = True
-                profesor += "_ingles"
-            # for hora in asignatura.horas:
-            #     if hora.get(HoraAtributes.TURNO) == "Ingles":
-            #         break
-
-            turno += "Cua"+cuatri
-            if ingles:
-                nombre += "_Ingles"
+        for turno, veces in turno_times.items():
+            nombre_turno = ("Inf"+asignatura.get(AsigAtributes.CURSO)+turno) if turno != "" else "TurnoGenerico"
+            nombre_turno += "Cua"+cuatri
 
             times = veces
-            prolog_data.append(PrologSubjectData(turno, nombre, profesor, times))
+
+            nombre = asignatura.get(AsigAtributes.NOMBRE)
+            profesor = "Profesor_"+nombre
+
+            if turno == "Turno 2" or turno == "Turno 4":
+                profesor += "_tarde"
+                
+            if turno == "Ingles":
+                nombre_turno = nombre_turno.replace("Ingles","Turno_1")
+                # aula_ingles = asignatura.get_aula_ingles()
+                aula_ingles = "r1"
+                ingles_subject = PrologInglesSubject(aula_ingles, nombre_turno, nombre, veces)
+                prolog_data_asig_ingles.append(ingles_subject)
+                
+            else:
+                prolog_data.append(PrologSubjectData(nombre_turno, nombre, profesor, times))
 
 
     with open(FICHERO_REQUISITOS, "w", encoding="utf8") as file:
@@ -227,6 +243,11 @@ def main():
                 curso = curso_act
 
             file.write((str(pd)+".\n"))
+
+        file.write("\n\n\n\n")
+
+        for subject_ingles in prolog_data_asig_ingles:
+            file.write( str(subject_ingles)+".\n" )
 
     for data in prolog_data:
         print(f"{data}")
