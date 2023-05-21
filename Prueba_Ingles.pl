@@ -52,7 +52,8 @@
 :- discontiguous class_subject_teacher_times/4.
 :- discontiguous class_freeslot/2.
 
-%:- initialization main.
+
+:- initialization main.
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
                    Posting constraints
@@ -84,7 +85,7 @@ say_hi(_Request) :-
             format('<h1>AI Timetable</h1><h2><a href="aitt">Example</a></h2></body></html>~n').
 
 main :- 
-  http_server(http_dispatch, [port(3051)]),
+  http_server(http_dispatch, [port(3050)]),
   thread_get_message(quit).
 
 classes(Classes) :-
@@ -97,6 +98,10 @@ subject_room(Subjects) :-
 subject_room_ingles(SubjectsIng) :-
        findall(C-S, room_ingles(_A,C,S,_N), SubjectsIng0),
         sort(SubjectsIng0, SubjectsIng).
+		
+turno_Ingles(Tingles):-
+		findall(C, room_ingles(_A,C,_S,_N), SubjectsIng0),
+        sort(SubjectsIng0, Tingles).
             
 teachers(Teachers) :-
         setof(T, C^S^N^class_subject_teacher_times(C,S,T,N), Teachers).
@@ -191,7 +196,7 @@ without_at_pos0(>, E, Ws0, Ws0) --> [E].
 %:- list_without_nths("abcd", [1,2], "ad").           
             
             
-requirements_variables(Rs, Ralloc,Vars) :-
+requirements_variables(Rs, Ralloc,Ringles,Vars) :-
         requirements(Rs),
             requirements_room(Ralloc),
             requirements_eng(Ringles),
@@ -209,7 +214,7 @@ requirements_variables(Rs, Ralloc,Vars) :-
         maplist(constrain_class(Rs), Classes),
         maplist(constrain_room(Rs), Rooms),
         maplist(constrain_room_alloc(Rs,Ralloc) ,S),
-        constrain_room_ingles(Rs,Ringles,S1).
+        maplist(constrain_room_ingles(Rs,Ringles),S1).
 
 constrain_class(Rs, Class) :-
         tfilter(class_req(Class), Rs, Sub),
@@ -235,8 +240,16 @@ constrain_room_ingles(Rs ,Ringles, Class-Subject):-
             
             tfilter(class_room_ingles(Class), Ringles, Sub2),
             tfilter(subject_room_ingles(Subject), Sub2, Sub3),
-            maplist(objetive(Sub1) , Sub3).
+            objetiveIngles(Sub1 , Sub3).
+	
 
+%%% fallo aqui , averiguar	
+objetiveIngles([req(_,_,_,_)-[]] , _ ).
+objetiveIngles([req(_,_,_,_)-[Cab1|Resto1]],[rIng(_,_,_,N)-[Cab2|Resto2]]):-
+            N > 0 , N2 is N-1,Cab1 #= Cab2, 
+            objetiveIngles([req(_,_,_,_)-Resto1],[rIng(_,_,_,N2)-Resto2]).
+
+			
 /*
 req(_,_,_,_)-[_A] , rom(_,_,_,_)-[_B] _A #=_B
 
@@ -283,7 +296,7 @@ room_req(C0, rom(C1,_A,_S,_N)-_, T) :- =(C0, C1, T).
 
 class_room_alloc(C0, rom(_A,C1,_S,_N)-_, T) :- =(C0, C1, T).
 class_room_ingles(C0, rIng(_A,C1,_S,_N)-_, T) :- =(C0, C1, T).
-subject_room_ingles(C0, rom(_A,_C,C1,_N)-_, T) :- =(C0, C1, T).
+subject_room_ingles(C0, rIng(_A,_C,C1,_N)-_, T) :- =(C0, C1, T).
 subject_room_alloc(C0, rom(_A,_C,C1,_N)-_, T) :- =(C0, C1, T).
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -349,6 +362,18 @@ rooms_days(Rs, Aulas, Days):-
 v_rooms(Rs, V, N0, N) :-
 		(   member(rom(_,C,Subj,_)-Times, Rs),
             member(N0, Times) -> V = class_subject(C, Subj)
+        ;   V = free
+        ),
+        N #= N0 + 1.
+		
+ingles_days(Rs, Class , Days):-
+		days_variables(Days, Vs),
+		tfilter(class_room_ingles(Class), Rs, Sub),
+		foldl(v_ingles(Sub), Vs, 0, _).
+
+v_ingles(Rs , V , N0 , N):-
+		(   member(rIng(_,_,Subj,_)-Times, Rs),
+            member(N0, Times) -> V = subject(Subj)
         ;   V = free
         ),
         N #= N0 + 1.
@@ -431,6 +456,20 @@ format_rooms([T|Ts], Rs):-
         align_rows(Days),
             format("</table></div>", []),
         format_rooms(Ts, Rs).
+		
+print_ingles(Ringles) :-
+		turno_Ingles(Ri),
+        format_ingles(Ri, Ringles).
+		
+format_ingles([], _).
+format_ingles([T|Ts], Rs):-
+		ingles_days(Rs, T, Days0),
+        transpose(Days0, Days),
+        format("<h2>Class Ingles: ~w</h2>~2n", [T]),
+        weekdays_header,
+        align_rows(Days),
+		format("</table></div>", []),
+        format_ingles(Ts, Rs).
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -445,18 +484,19 @@ aitt(_Request) :-                         % (3)
             format('<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">\n<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>\n<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>'),
             format('<head></head><body>~n'),
             format('<h1>AI Timetable</h1>~n'),
-            requirements_variables(Rs,Ralloc, Vs),
+            requirements_variables(Rs,Ralloc,Ringles, Vs),
             labeling([ff], Vs),
             print_classes(Rs,Ralloc),
             print_teachers(Rs),
 			print_room(Ralloc),
+			print_ingles(Ringles),
             format('</body>~n').          
             
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
    ?- server(8080).
    
    ?- requirements_variables(Rs,Ra, Vs),labeling([ff], Vs),print_classes(Rs).
-   ?- requirements_variables(Rs,Ralloc, Vs),labeling([ff], Vs),print_room(Ralloc).
+   ?- requirements_variables(Rs,Ralloc,Ringles, Vs),labeling([ff], Vs),print_room(Ralloc).
    %@ Class: 1a
    %@
    %@   Mon     Tue     Wed     Thu     Fri
