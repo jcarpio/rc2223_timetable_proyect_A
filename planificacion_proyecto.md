@@ -2,6 +2,7 @@
 # Planificación del Proyecto AiTimetable
 
 ## 1. Hablar con Alvaro para su posible incorporación al proyecto (Responsable Rubén)
+(5 de Agosto)
 
 ## 2. Pitch Deck (Responsable Rubén)
 (20 de Agosto)
@@ -14,3 +15,8 @@ Enviar ejemplos de vídeos de presentación de ideas
 (24 de Agosto)
 
 ## 6. Presentación de la idea a los inversores (Responsable Manolo Oliveira)
+(10 de Septiembre)
+
+
+El responsable, es la persona encargada de coordinar las tareas. El no tiene que hacerlo todo, tiene que pedir ayuda al resto del equipo
+y los demás miembros colaborar para tener las tareas a tiempo. 
