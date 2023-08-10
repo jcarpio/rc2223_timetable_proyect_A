@@ -1,7 +1,7 @@
 
 # Planificación del Proyecto AiTimetable
 
-## ~~ 1. Hablar con Alvaro para su posible incorporación al proyecto (Responsable Rubén) ~~
+## <del> 1. Hablar con Alvaro para su posible incorporación al proyecto (Responsable Rubén) </del>
 (5 de Agosto)
 
 ## 2. Pitch Deck (Responsable Rubén, colaboran Manuel Ramirez y Manuel Martín) 
