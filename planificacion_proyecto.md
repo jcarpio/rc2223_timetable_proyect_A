@@ -14,6 +14,7 @@
 Enviar ejemplos de vídeos de presentación de ideas
 
 ## 4. Crear una landing page y los correos automatizados para guardar los contactos de las personas interesadas (Responsable Sergio, colaborador Jose Carpio)
+https://www.mailerlite.com/es
 (22 de Agosto)
 
 ## 5. Campaña de publicidad y contacto con posibles clientes (Responsable Sergio)
