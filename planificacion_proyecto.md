@@ -9,14 +9,17 @@
 ### Pedir datos de empresas para determinar el mercado (gimnasios, farmacias, academias, ...)
 (20 de Agosto)
 
-## 3. Vídeo de presentación (Responsable Jose Carpio)
+## 3. Vídeo para la campaña de publicidad con presentación y venta (Responsable Jose Carpio)
 (17 de Agosto)
 Enviar ejemplos de vídeos de presentación de ideas
+
+## 4. Crear una landing page y los correos automatizados para guardar los contactos de las personas interesadas (Responsable Sergio, colaborador Jose Carpio)
+(22 de Agosto)
 
 ## 5. Campaña de publicidad y contacto con posibles clientes (Responsable Sergio)
 (24 de Agosto)
 
-## 7. Presentación de la idea a los inversores (Responsable Manolo Oliveira)
+## 6. Presentación de la idea a los inversores (Responsable Manolo Oliveira)
 (10 de Septiembre)
 
 
